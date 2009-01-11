@@ -4,7 +4,7 @@ Plugin Name: Cimy Swift SMTP
 Plugin URI: http://www.marcocimmino.net/cimy-wordpress-plugins/cimy-swift-smtp/
 Description: Send email via SMTP (Compatible with GMAIL)
 Author: Marco Cimmino
-Version: 1.2.2
+Version: 1.2.3
 Author URI: mailto:cimmino.marco@gmail.com
 
 Copyright (c) 2007-2009 Marco Cimmino
@@ -101,7 +101,7 @@ function st_smtp_options_page() {
 	?>
 		<h2>Cimy Swift SMTP</h2>
 		<p><?php _e("Add here your SMTP server details", $cimy_swift_domain); ?><br /><?php _e("<strong>Note:</strong> Gmail users need to use the server 'smtp.gmail.com' with TLS enabled and port 465", $cimy_swift_domain); ?></p>
-		<form method="post" action="<?php echo $_SERVER['REQUEST_URI'];?>&amp;updated=true">
+		<form method="post" action="<?php echo admin_url("options-general.php?page=swift_smtp&amp;updated=true"); ?>">
 		<input type="hidden" name="st_smtp_submit_options" value="true" />
 		<table width="600">
 		<tr>

@@ -57,6 +57,10 @@ A lot of times I cannot reproduce the problem and I need more details, so if you
 
 
 CHANGELOG:
+v1.2.3 - 11/01/2009
+- Fixed 404 error when saving options under certain broken webservers
+- Renamed REAMDE file to README_OFFICIAL.txt due to WordPress Plugin Directory rules
+
 v1.2.2 - 02/01/2009
 - Added possibility to translate the plug-in
 - Added Italian translation
