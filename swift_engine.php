@@ -186,8 +186,9 @@ function wp_mail($to, $subject, $message, $headers = '', $attachments = array(),
 	if (empty($st_smtp_config['port']))
 		$st_smtp_config['port'] = 25;
 
-	//Create the Transport the call setUsername() and setPassword()
+	// we should try first and _maybe_ echo failure error
 	try {
+		// Create the Transport then call setUsername() and setPassword()
 		$transport = Swift_SmtpTransport::newInstance($st_smtp_config['server'], $st_smtp_config['port']);
 
 		if (!empty($st_smtp_config['ssl']))
@@ -199,7 +200,7 @@ function wp_mail($to, $subject, $message, $headers = '', $attachments = array(),
 		if (!empty($st_smtp_config['password']))
 			$transport->setPassword($st_smtp_config['password']);
 
-		//Create the Mailer using your created Transport
+		// Create the Mailer using your created Transport
 		$mailer = Swift_Mailer::newInstance($transport);
 
 		// Send!
