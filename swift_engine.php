@@ -2,7 +2,7 @@
 
 #OVERRIDE WP_MAIL FUNCTION!!!!
 if ( !function_exists('wp_mail') ) {
-function wp_mail( $to, $subject, $message, $headers = '', $attachments = array() ) {
+function wp_mail($to, $subject, $message, $headers = '', $attachments = array(), $echo_error = false) {
 	global $st_smtp_config;
 
 	// Compact the input, apply the filters, and extract them back out
@@ -187,22 +187,29 @@ function wp_mail( $to, $subject, $message, $headers = '', $attachments = array()
 		$st_smtp_config['port'] = 25;
 
 	//Create the Transport the call setUsername() and setPassword()
-	$transport = Swift_SmtpTransport::newInstance($st_smtp_config['server'], $st_smtp_config['port']);
+	try {
+		$transport = Swift_SmtpTransport::newInstance($st_smtp_config['server'], $st_smtp_config['port']);
 
-	if (!empty($st_smtp_config['ssl']))
-		$transport->setEncryption('ssl');
+		if (!empty($st_smtp_config['ssl']))
+			$transport->setEncryption('ssl');
 
-	if (!empty($st_smtp_config['username']))
-		$transport->setUsername($st_smtp_config['username']);
+		if (!empty($st_smtp_config['username']))
+			$transport->setUsername($st_smtp_config['username']);
 
-	if (!empty($st_smtp_config['password']))
-		$transport->setPassword($st_smtp_config['password']);
+		if (!empty($st_smtp_config['password']))
+			$transport->setPassword($st_smtp_config['password']);
 
-	//Create the Mailer using your created Transport
-	$mailer = Swift_Mailer::newInstance($transport);
+		//Create the Mailer using your created Transport
+		$mailer = Swift_Mailer::newInstance($transport);
 
-	// Send!
-	$result = $mailer->send($message);
+		// Send!
+		$result = $mailer->send($message, $failures);
+	}
+	catch (Exception $e) {
+		$result = false;
+		if ($echo_error)
+			echo $e->getMessage();
+	}
 
 	return $result;
 }
