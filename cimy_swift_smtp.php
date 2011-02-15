@@ -200,7 +200,7 @@ function st_smtp_options_page() {
 			
 			$text = __("This is a test mail sent using the Cimy Swift SMTP Plugin. If you've received this email it means your connection has been set up properly! Cool!", $cimy_swift_domain);
 			
-			if (wp_mail($email, 'Cimy Swift SMTP Test', $text)) {
+			if (wp_mail($email, 'Cimy Swift SMTP Test', $text, '', array(), true)) {
 				echo "<p><strong>".__("TEST EMAIL SENT - Connection Verified.", $cimy_swift_domain)."<br />".__("If you don't receive the e-mail check also the spam folder.", $cimy_swift_domain)."</strong></p>";
 			}
 		}
