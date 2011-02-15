@@ -5,15 +5,16 @@ Basically this plug-in is for all people that have an hosting server that has th
 
 
 REQUIREMENTS:
-- PHP >= 4.3.0
+- PHP >= 5.0.0
   for SSL and TLS support you need to have PHP compiled with openSSL support
   http://www.php.net/openssl
-- WORDPRESS >= 2.0.x
+- WORDPRESS >= 3.0.x
 
 INSTALLATION:
-- just copy whole Cimy_Swift_SMTP subdir into your plug-in directory and activate it
+- just copy whole cimy-swift-smtp subdir into your plug-in directory and activate it
 
 
+BEFORE writing to me read carefully ALL the documentation AND the FAQ. Missing this step means you are wasting my time!
 Bugs or suggestions can be mailed at: cimmino.marco@gmail.com
 
 
@@ -57,6 +58,12 @@ A lot of times I cannot reproduce the problem and I need more details, so if you
 
 
 CHANGELOG:
+v2.0.0-beta1 - 15/02/2011
+- Updated Swift Mailer to 4.0.6
+- Completely re-written mail engine to match changes
+- Fixed plug-in should never echo errors, disabled by default
+- Renamed plug-in directory due to WordPress Plugin Directory rules
+
 v1.2.3 - 11/01/2009
 - Fixed 404 error when saving options under certain broken webservers
 - Renamed REAMDE file to README_OFFICIAL.txt due to WordPress Plugin Directory rules

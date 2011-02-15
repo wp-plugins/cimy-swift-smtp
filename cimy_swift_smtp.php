@@ -4,10 +4,10 @@ Plugin Name: Cimy Swift SMTP
 Plugin URI: http://www.marcocimmino.net/cimy-wordpress-plugins/cimy-swift-smtp/
 Description: Send email via SMTP (Compatible with GMAIL)
 Author: Marco Cimmino
-Version: 1.2.3
+Version: 2.0.0-beta1
 Author URI: mailto:cimmino.marco@gmail.com
 
-Copyright (c) 2007-2009 Marco Cimmino
+Copyright (c) 2007-2011 Marco Cimmino
 
 original plug-in is from Marcus Vanstone
 http://www.shiftthis.net/wordpress-swift-smtp-plugin/
@@ -68,9 +68,9 @@ function st_smtp_add_pages() {
 	global $cimy_top_menu;
 	
 	if (isset($cimy_top_menu))
-		add_submenu_page('cimy_series.php', "Cimy Swift SMTP", "Swift SMTP", 10, "swift_smtp", 'st_smtp_options_page');
+		add_submenu_page('cimy_series.php', "Cimy Swift SMTP", "Swift SMTP", "manage_options", "swift_smtp", 'st_smtp_options_page');
 	else
-		add_options_page('Cimy Swift SMTP', 'Cimy Swift SMTP', 10, "swift_smtp", 'st_smtp_options_page');
+		add_options_page('Cimy Swift SMTP', 'Cimy Swift SMTP', "manage_options", "swift_smtp", 'st_smtp_options_page');
 }
 
 function st_smtp_options_page() {
@@ -82,11 +82,11 @@ function st_smtp_options_page() {
 	// Make sure we have the freshest copy of the options
 	$st_smtp_config = get_option('st_smtp_config');
 	
-	$st_smtp_config['server'] = attribute_escape($st_smtp_config['server']);
-	$st_smtp_config['username'] = attribute_escape($st_smtp_config['username']);
-	$st_smtp_config['password'] = attribute_escape($st_smtp_config['password']);
-	$st_smtp_config['sender_name'] = attribute_escape($st_smtp_config['sender_name']);
-	$st_smtp_config['sender_mail'] = attribute_escape($st_smtp_config['sender_mail']);
+	$st_smtp_config['server'] = esc_attr($st_smtp_config['server']);
+	$st_smtp_config['username'] = esc_attr($st_smtp_config['username']);
+	$st_smtp_config['password'] = esc_attr($st_smtp_config['password']);
+	$st_smtp_config['sender_name'] = esc_attr($st_smtp_config['sender_name']);
+	$st_smtp_config['sender_mail'] = esc_attr($st_smtp_config['sender_mail']);
 	
 	if ($st_smtp_config['overwrite_sender'])
 		$overwrite_sender = ' checked="checked"';
@@ -96,7 +96,7 @@ function st_smtp_options_page() {
 	?>
 	<div class="wrap">
 	<?php
-		if (function_exists(screen_icon))
+		if (function_exists("screen_icon"))
 			screen_icon();
 	?>
 		<h2>Cimy Swift SMTP</h2>
@@ -200,7 +200,7 @@ function st_smtp_options_page() {
 			
 			$text = __("This is a test mail sent using the Cimy Swift SMTP Plugin. If you've received this email it means your connection has been set up properly! Cool!", $cimy_swift_domain);
 			
-			if (wp_mail($email, 'Cimy Swift SMTP Test', $text)) {
+			if (wp_mail($email, 'Cimy Swift SMTP Test', $text, '', array(), true)) {
 				echo "<p><strong>".__("TEST EMAIL SENT - Connection Verified.", $cimy_swift_domain)."<br />".__("If you don't receive the e-mail check also the spam folder.", $cimy_swift_domain)."</strong></p>";
 			}
 		}
