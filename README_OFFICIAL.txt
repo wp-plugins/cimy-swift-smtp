@@ -58,6 +58,10 @@ A lot of times I cannot reproduce the problem and I need more details, so if you
 
 
 CHANGELOG:
+v2.0.0 - 14/07/2011
+- Updated Swift Mailer to 4.1.1
+- Added an attachment in the test mail
+
 v2.0.0-beta1 - 15/02/2011
 - Updated Swift Mailer to 4.0.6
 - Completely re-written mail engine to match changes
