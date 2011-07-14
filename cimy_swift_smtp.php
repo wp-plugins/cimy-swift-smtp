@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 The full copy of the GNU General Public License is available here: http://www.gnu.org/licenses/gpl.txt
 
 */
+
 $cimy_swift_plugin_path = plugin_basename(dirname(__FILE__))."/";
 $cimy_swift_plugin_fullpath = WP_PLUGIN_DIR.'/'.$cimy_swift_plugin_path;
 
