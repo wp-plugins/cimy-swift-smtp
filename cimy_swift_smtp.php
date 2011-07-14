@@ -4,7 +4,7 @@ Plugin Name: Cimy Swift SMTP
 Plugin URI: http://www.marcocimmino.net/cimy-wordpress-plugins/cimy-swift-smtp/
 Description: Send email via SMTP (Compatible with GMAIL)
 Author: Marco Cimmino
-Version: 2.0.0-beta1
+Version: 2.0.0
 Author URI: mailto:cimmino.marco@gmail.com
 
 Copyright (c) 2007-2011 Marco Cimmino
@@ -33,6 +33,7 @@ The full copy of the GNU General Public License is available here: http://www.gn
 */
 
 $cimy_swift_plugin_path = plugin_basename(dirname(__FILE__))."/";
+$cimy_swift_plugin_fullpath = WP_PLUGIN_DIR.'/'.$cimy_swift_plugin_path;
 
 include('swift_engine.php');
 
@@ -56,7 +57,7 @@ function cimy_swift_i18n_setup() {
 	if ($cimy_swift_i18n_is_setup)
 		return;
 
-	load_plugin_textdomain($cimy_swift_domain, PLUGINDIR.'/'.$cimy_swift_plugin_path.'langs', $cimy_swift_plugin_path.'langs');
+	load_plugin_textdomain($cimy_swift_domain, false, $cimy_swift_plugin_path.'langs');
 }
 
 
@@ -74,7 +75,7 @@ function st_smtp_add_pages() {
 }
 
 function st_smtp_options_page() {
-	global $cimy_swift_domain;
+	global $cimy_swift_domain, $cimy_swift_plugin_fullpath;
 
 	if (isset($_GET['error']) || (!current_user_can('manage_options')))
 		return;
@@ -200,7 +201,7 @@ function st_smtp_options_page() {
 			
 			$text = __("This is a test mail sent using the Cimy Swift SMTP Plugin. If you've received this email it means your connection has been set up properly! Cool!", $cimy_swift_domain);
 			
-			if (wp_mail($email, 'Cimy Swift SMTP Test', $text, '', array(), true)) {
+			if (wp_mail($email, 'Cimy Swift SMTP Test', $text, '', array($cimy_swift_plugin_fullpath.'test_attachment.txt'), true)) {
 				echo "<p><strong>".__("TEST EMAIL SENT - Connection Verified.", $cimy_swift_domain)."<br />".__("If you don't receive the e-mail check also the spam folder.", $cimy_swift_domain)."</strong></p>";
 			}
 		}
