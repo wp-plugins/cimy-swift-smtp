@@ -4,7 +4,7 @@ Plugin Name: Cimy Swift SMTP
 Plugin URI: http://www.marcocimmino.net/cimy-wordpress-plugins/cimy-swift-smtp/
 Description: Send email via SMTP (Compatible with GMAIL)
 Author: Marco Cimmino
-Version: 2.0.0
+Version: 2.0.1
 Author URI: mailto:cimmino.marco@gmail.com
 
 Copyright (c) 2007-2011 Marco Cimmino
@@ -143,9 +143,9 @@ function st_smtp_options_page() {
 			</td>
 			<td>
 				<select id="css_port" name="css_port">
-					<option value="25" <?php if ($st_smtp_config['port'] == "25"){echo "selected='selected'";}?>><?php _e("25 (Default SMTP Port)", $cimy_swift_domain); ?></option>
-					<option value="465" <?php if ($st_smtp_config['port'] == "465"){echo "selected='selected'";}?>><?php _e("465 (Use for SSL/TLS/GMAIL)", $cimy_swift_domain); ?></option>
-					<option value="custom" <?php if ( ($st_smtp_config['port'] != "465") && ($st_smtp_config['port'] != "25") ){echo "selected='selected'";}?>><?php _e("Custom Port: (Use Box)", $cimy_swift_domain); ?></option>
+					<option value="25" <?php selected($st_smtp_config['port'], "25", true); ?>><?php _e("25 (Default SMTP Port)", $cimy_swift_domain); ?></option>
+					<option value="465" <?php selected($st_smtp_config['port'], "465", true); ?>><?php _e("465 (Use for SSL/TLS/GMAIL)", $cimy_swift_domain); ?></option>
+					<option value="custom" <?php selected(($st_smtp_config['port'] != "465" && $st_smtp_config['port'] != "25"), true, true); ?>><?php _e("Custom Port: (Use Box)", $cimy_swift_domain); ?></option>
 				</select>&nbsp;<input name="css_customport" type="text" size="4" value="<?php if (($st_smtp_config['port'] != "465") && ($st_smtp_config['port'] != "25")) { echo $st_smtp_config['port']; } ?>" />
 			</td>
 		</tr>
@@ -171,10 +171,15 @@ function st_smtp_options_page() {
 			</td>
 			<td>
 				<select id="css_ssl" name="css_ssl">
-					<option value="" <?php if ($st_smtp_config['ssl'] == ''){echo 'selected="selected"';}?>><?php _e("No", $cimy_swift_domain); ?></option>
-					<option value="ssl" <?php if ($st_smtp_config['ssl'] == 'ssl'){echo 'selected="selected"';}?>><?php _e("SSL", $cimy_swift_domain); ?></option>
-					<option value="tls" <?php if ($st_smtp_config['ssl'] == 'tls'){echo 'selected="selected"';}?>><?php _e("TLS (Use for Gmail)", $cimy_swift_domain); ?></option>
+					<option value="" <?php selected($st_smtp_config['ssl'], "", true); ?>><?php _e("No", $cimy_swift_domain); ?></option>
+					<option value="ssl" <?php selected($st_smtp_config['ssl'], "ssl", true); ?>><?php _e("SSL", $cimy_swift_domain); ?></option>
+					<option value="tls" <?php selected($st_smtp_config['ssl'], "tls", true); ?>><?php _e("TLS (Use for Gmail)", $cimy_swift_domain); ?></option>
 				</select>
+				<?php
+				$available_transports = stream_get_transports();
+				if (!empty($st_smtp_config['ssl']) && !in_array($st_smtp_config['ssl'], $available_transports))
+					sprintf(_e("The selected protocol '%s' is not available on your PHP configuration, check how to enable it from %s", $cimy_swift_domain), $st_smtp_config['ssl'], "http://www.php.net/openssl");
+				?>
 			</td>
 		</tr>
 		</table>
