@@ -4,7 +4,7 @@ Plugin Name: Cimy Swift SMTP
 Plugin URI: http://www.marcocimmino.net/cimy-wordpress-plugins/cimy-swift-smtp/
 Description: Send email via SMTP (Compatible with GMAIL)
 Author: Marco Cimmino
-Version: 2.0.1
+Version: 2.1.0
 Author URI: mailto:cimmino.marco@gmail.com
 
 Copyright (c) 2007-2011 Marco Cimmino
@@ -103,6 +103,7 @@ function st_smtp_options_page() {
 		<h2>Cimy Swift SMTP</h2>
 		<p><?php _e("Add here your SMTP server details", $cimy_swift_domain); ?><br /><?php _e("<strong>Note:</strong> Gmail users need to use the server 'smtp.gmail.com' with TLS enabled and port 465", $cimy_swift_domain); ?></p>
 		<form method="post" action="<?php echo admin_url("options-general.php?page=swift_smtp&amp;updated=true"); ?>">
+		<?php wp_nonce_field('cimy_swift_smtp', 'cimy_swift_smtp_adminnonce', false); ?>
 		<input type="hidden" name="st_smtp_submit_options" value="true" />
 		<table width="600">
 		<tr>
@@ -144,7 +145,8 @@ function st_smtp_options_page() {
 			<td>
 				<select id="css_port" name="css_port">
 					<option value="25" <?php selected($st_smtp_config['port'], "25", true); ?>><?php _e("25 (Default SMTP Port)", $cimy_swift_domain); ?></option>
-					<option value="465" <?php selected($st_smtp_config['port'], "465", true); ?>><?php _e("465 (Use for SSL/TLS/GMAIL)", $cimy_swift_domain); ?></option>
+					<option value="465" <?php selected($st_smtp_config['port'], "465", true); ?>><?php _e("465 (Use for SSL/GMAIL)", $cimy_swift_domain); ?></option>
+					<option value="587" <?php selected($st_smtp_config['port'], "587", true); ?>><?php _e("587 (Use for TLS/STARTTLS/GMAIL)", $cimy_swift_domain); ?></option>
 					<option value="custom" <?php selected(($st_smtp_config['port'] != "465" && $st_smtp_config['port'] != "25"), true, true); ?>><?php _e("Custom Port: (Use Box)", $cimy_swift_domain); ?></option>
 				</select>&nbsp;<input name="css_customport" type="text" size="4" value="<?php if (($st_smtp_config['port'] != "465") && ($st_smtp_config['port'] != "25")) { echo $st_smtp_config['port']; } ?>" />
 			</td>
@@ -178,7 +180,11 @@ function st_smtp_options_page() {
 				<?php
 				$available_transports = stream_get_transports();
 				if (!empty($st_smtp_config['ssl']) && !in_array($st_smtp_config['ssl'], $available_transports))
+				{
+					echo "<br /><strong>";
 					sprintf(_e("The selected protocol '%s' is not available on your PHP configuration, check how to enable it from %s", $cimy_swift_domain), $st_smtp_config['ssl'], "http://www.php.net/openssl");
+					echo "</strong>";
+				}
 				?>
 			</td>
 		</tr>
@@ -201,7 +207,7 @@ function st_smtp_options_page() {
 			?><br /><br /><h2><?php _e("Test result", $cimy_swift_domain); ?></h2><?php
 			$email = $_POST['testemail'];
 			
-			if ($email == "")
+			if (empty($email))
 				$email = form_option('admin_email');
 			
 			$text = __("This is a test mail sent using the Cimy Swift SMTP Plugin. If you've received this email it means your connection has been set up properly! Cool!", $cimy_swift_domain);
@@ -228,6 +234,8 @@ function st_smtp_check_config() {
 function st_smtp_options_submit() {
 
 	if (!current_user_can('manage_options'))
+		return;
+	if (!check_admin_referer('cimy_swift_smtp', 'cimy_swift_smtp_adminnonce'))
 		return;
 
 	//options page
