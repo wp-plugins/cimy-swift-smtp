@@ -192,7 +192,7 @@ function wp_mail($to, $subject, $message, $headers = '', $attachments = array(),
 		$transport = Swift_SmtpTransport::newInstance($st_smtp_config['server'], $st_smtp_config['port']);
 
 		if (!empty($st_smtp_config['ssl']))
-			$transport->setEncryption('ssl');
+			$transport->setEncryption($st_smtp_config['ssl']);
 
 		if (!empty($st_smtp_config['username']))
 			$transport->setUsername($st_smtp_config['username']);
