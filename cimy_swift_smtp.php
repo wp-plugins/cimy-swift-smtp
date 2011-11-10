@@ -93,6 +93,7 @@ function st_smtp_options_page() {
 		$overwrite_sender = ' checked="checked"';
 	else
 		$overwrite_sender = '';
+	$suggested_ports = array("25", "465", "587");
 
 	?>
 	<div class="wrap">
@@ -147,8 +148,8 @@ function st_smtp_options_page() {
 					<option value="25" <?php selected($st_smtp_config['port'], "25", true); ?>><?php _e("25 (Default SMTP Port)", $cimy_swift_domain); ?></option>
 					<option value="465" <?php selected($st_smtp_config['port'], "465", true); ?>><?php _e("465 (Use for SSL/GMAIL)", $cimy_swift_domain); ?></option>
 					<option value="587" <?php selected($st_smtp_config['port'], "587", true); ?>><?php _e("587 (Use for TLS/STARTTLS/GMAIL)", $cimy_swift_domain); ?></option>
-					<option value="custom" <?php selected(($st_smtp_config['port'] != "465" && $st_smtp_config['port'] != "25"), true, true); ?>><?php _e("Custom Port: (Use Box)", $cimy_swift_domain); ?></option>
-				</select>&nbsp;<input name="css_customport" type="text" size="4" value="<?php if (($st_smtp_config['port'] != "465") && ($st_smtp_config['port'] != "25")) { echo $st_smtp_config['port']; } ?>" />
+					<option value="custom" <?php selected(in_array($st_smtp_config['port'], $suggested_ports), false, true); ?>><?php _e("Custom Port: (Use Box)", $cimy_swift_domain); ?></option>
+				</select>&nbsp;<input name="css_customport" type="text" size="4" value="<?php if (!in_array($st_smtp_config['port'], $suggested_ports)) { echo $st_smtp_config['port']; } ?>" />
 			</td>
 		</tr>
 		<tr>
