@@ -1,6 +1,12 @@
 Changelog since Version 4.1.x
 =============================
 
+4.1.4 (2011-12-16)
+------------------
+
+ * added a memory spool (Swift_MemorySpool)
+ * fixed too many opened files when sending emails with attachments
+
 4.1.3 (2011-10-27)
 ------------------
 
