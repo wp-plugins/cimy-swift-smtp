@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cimy Swift SMTP\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-18 14:41+0300\n"
-"PO-Revision-Date: 2011-12-18 14:46+0300\n"
+"POT-Creation-Date: 2011-12-18 16:40+0300\n"
+"PO-Revision-Date: 2011-12-18 16:45+0300\n"
 "Last-Translator: Marco Cimmino <cimmino.marco@gmail.com>\n"
 "Language-Team:  <cimmino.marco@gmail.com>\n"
 "Language: \n"
@@ -56,16 +56,19 @@ msgid "Port:"
 msgstr "Porta:"
 
 #: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:164
-msgid "25 (Default SMTP Port)"
-msgstr "25 (Porta SMTP predefinita)"
+#, php-format
+msgid "%s (Default SMTP Port)"
+msgstr "%s (Porta SMTP predefinita)"
 
 #: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:165
-msgid "465 (Use for SSL/GMAIL)"
-msgstr "465 (Per uso con SSL/GMAIL)"
+#, php-format
+msgid "%s (Use for SSL/GMAIL)"
+msgstr "%s (Per uso con SSL/GMAIL)"
 
 #: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:166
-msgid "587 (Use for TLS/STARTTLS/GMAIL)"
-msgstr "587 (Per uso con TLS/STARTTLS/GMAIL)"
+#, php-format
+msgid "%s (Use for TLS/STARTTLS/GMAIL)"
+msgstr "%s (Per uso con TLS/STARTTLS/GMAIL)"
 
 #: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:167
 msgid "Custom Port: (Use Box)"
@@ -95,44 +98,44 @@ msgstr "SSL"
 msgid "TLS (Use for Gmail)"
 msgstr "TLS (Uso con Gmail)"
 
-#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:202
+#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:201
 #, php-format
 msgid "The selected protocol '%s' is not available on your PHP configuration, check how to enable it from %s"
 msgstr "Il protocollo selezionato '%s' non è disponibile nell'attuale configurazione PHP, controllare come abilitarlo da %s"
 
-#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:211
+#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:210
 msgid "Save Changes"
 msgstr ""
 
-#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:215
+#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:214
 msgid "Test Connection"
 msgstr "Test della connessione"
 
-#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:216
+#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:215
 msgid "Once you've saved your settings, click the link below to test your connection."
 msgstr "Una volta salvate le impostazioni, clicca sul link qui sotto per testare la tua connessione."
 
-#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:219
+#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:218
 msgid "Send Test Email to this Address:"
 msgstr "Spedisci l'email di test a questo indirizzo:"
 
-#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:219
+#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:218
 msgid "Send Test"
 msgstr "Spedisci il test"
 
-#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:224
+#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:223
 msgid "Test result"
 msgstr "Risultato del test"
 
-#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:230
+#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:229
 msgid "This is a test mail sent using the Cimy Swift SMTP Plugin. If you've received this email it means your connection has been set up properly! Cool!"
 msgstr "Questa è una mail di test spedita usando Cimy Swift SMTP Plugin. Se hai ricevuto questa email vuol dire che la tua connessione è stata settata correttamente! Forte!"
 
-#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:233
+#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:232
 msgid "TEST EMAIL SENT - Connection Verified."
 msgstr "EMAIL DI TEST SPEDITA - Connessione Verificata."
 
-#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:233
+#: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:232
 msgid "If you don't receive the e-mail check also the spam folder."
 msgstr "Se non ricevi l'e-mail controlla anche la cartella dello spam."
 

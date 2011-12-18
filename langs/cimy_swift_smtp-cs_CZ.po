@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cimy Swift SMTP v2.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-18 14:53+0300\n"
-"PO-Revision-Date: 2011-12-18 14:53+0300\n"
+"POT-Creation-Date: 2011-12-18 16:46+0300\n"
+"PO-Revision-Date: 2011-12-18 16:47+0300\n"
 "Last-Translator: Marco Cimmino <cimmino.marco@gmail.com>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -68,18 +68,21 @@ msgstr "Port:"
 
 # @ cimy_swift_smtp
 #: cimy_swift_smtp.php:164
-msgid "25 (Default SMTP Port)"
-msgstr "25 (výchozí SMTP Port)"
+#, php-format
+msgid "%s (Default SMTP Port)"
+msgstr "%s (výchozí SMTP Port)"
 
 # @ cimy_swift_smtp
 #: cimy_swift_smtp.php:165
-msgid "465 (Use for SSL/GMAIL)"
-msgstr "465 (použijte pro SSL/GMAIL)"
+#, php-format
+msgid "%s (Use for SSL/GMAIL)"
+msgstr "%s (použijte pro SSL/GMAIL)"
 
 # @ cimy_swift_smtp
 #: cimy_swift_smtp.php:166
-msgid "587 (Use for TLS/STARTTLS/GMAIL)"
-msgstr "587 (použijte pro TLS/STARTTLS/GMAIL)"
+#, php-format
+msgid "%s (Use for TLS/STARTTLS/GMAIL)"
+msgstr "%s (použijte pro TLS/STARTTLS/GMAIL)"
 
 # @ cimy_swift_smtp
 #: cimy_swift_smtp.php:167

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cimy Swift SMTP\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-18 14:53+0300\n"
-"PO-Revision-Date: 2011-12-18 14:53+0300\n"
+"POT-Creation-Date: 2011-12-18 16:47+0300\n"
+"PO-Revision-Date: 2011-12-18 16:47+0300\n"
 "Last-Translator: Marco Cimmino <cimmino.marco@gmail.com>\n"
 "Language-Team: Fat Cow <zhr@tut.by>\n"
 "Language: \n"
@@ -57,16 +57,19 @@ msgid "Port:"
 msgstr "Порт:"
 
 #: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:164
-msgid "25 (Default SMTP Port)"
-msgstr "25 (стандартны SMTP-порт)"
+#, php-format
+msgid "%s (Default SMTP Port)"
+msgstr "%s (стандартны SMTP-порт)"
 
 #: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:165
-msgid "465 (Use for SSL/GMAIL)"
-msgstr "465 (выкарыстоўваць для SSL/GMAIL)"
+#, php-format
+msgid "%s (Use for SSL/GMAIL)"
+msgstr "%s (выкарыстоўваць для SSL/GMAIL)"
 
 #: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:166
-msgid "587 (Use for TLS/STARTTLS/GMAIL)"
-msgstr "587 (выкарыстоўваць для TLS/STARTTLS/GMAIL)"
+#, php-format
+msgid "%s (Use for TLS/STARTTLS/GMAIL)"
+msgstr "%s (выкарыстоўваць для TLS/STARTTLS/GMAIL)"
 
 #: /var/www/wp-content/plugins/cimy-swift-smtp/cimy_swift_smtp.php:167
 msgid "Custom Port: (Use Box)"
