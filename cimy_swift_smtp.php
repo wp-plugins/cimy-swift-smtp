@@ -263,15 +263,10 @@ function st_smtp_options_submit() {
 	$option['username'] = $_POST['css_username'];
 	$option['password'] = $_POST['css_password'];
 	$option['ssl'] = $_POST['css_ssl'];
-
 	$option['sender_name'] = $_POST['css_sender_name'];
 	$option['sender_mail'] = $_POST['css_sender_mail'];
-	
-	if (isset($_POST['css_sender_overwrite']))
-		$option['overwrite_sender'] = true;
-	else
-		$option['overwrite_sender'] = false;
-		
+	$option['overwrite_sender'] = $_POST['css_sender_overwrite'];
+
 	if ($_POST['css_port'] != 'custom'){
 		$option['port'] = $_POST['css_port'];
 	} else {
