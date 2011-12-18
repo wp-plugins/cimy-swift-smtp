@@ -252,7 +252,6 @@ function st_smtp_check_config() {
 }
 
 function st_smtp_options_submit() {
-
 	if (!current_user_can('manage_options'))
 		return;
 	if (!check_admin_referer('cimy_swift_smtp', 'cimy_swift_smtp_adminnonce'))
