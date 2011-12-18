@@ -4,7 +4,7 @@ Plugin Name: Cimy Swift SMTP
 Plugin URI: http://www.marcocimmino.net/cimy-wordpress-plugins/cimy-swift-smtp/
 Description: Send email via SMTP (Compatible with GMAIL)
 Author: Marco Cimmino
-Version: 2.1.0
+Version: 2.1.1
 Author URI: mailto:cimmino.marco@gmail.com
 
 Copyright (c) 2007-2011 Marco Cimmino
@@ -45,7 +45,7 @@ if (isset($_POST['st_smtp_submit_options']))
 	add_action('init', 'st_smtp_options_submit'); //Update Options 
 
 // Load Options
-$st_smtp_config = get_option('st_smtp_config');
+$st_smtp_config = st_smtp_check_config();
 
 $cimy_swift_domain = 'cimy_swift_smtp';
 $cimy_swift_i18n_is_setup = 0;
@@ -80,19 +80,19 @@ function st_smtp_options_page() {
 	if (isset($_GET['error']) || (!current_user_can('manage_options')))
 		return;
 
+	// Get the site domain and get rid of www.
+	$sitename = strtolower( $_SERVER['SERVER_NAME'] );
+	if ( substr( $sitename, 0, 4 ) == 'www.' ) {
+		$sitename = substr( $sitename, 4 );
+	}
+	$from_email_def_wp = 'wordpress@' . $sitename;
 	// Make sure we have the freshest copy of the options
-	$st_smtp_config = get_option('st_smtp_config');
-	
+	$st_smtp_config = st_smtp_check_config();
 	$st_smtp_config['server'] = esc_attr($st_smtp_config['server']);
 	$st_smtp_config['username'] = esc_attr($st_smtp_config['username']);
 	$st_smtp_config['password'] = esc_attr($st_smtp_config['password']);
 	$st_smtp_config['sender_name'] = esc_attr($st_smtp_config['sender_name']);
 	$st_smtp_config['sender_mail'] = esc_attr($st_smtp_config['sender_mail']);
-	
-	if ($st_smtp_config['overwrite_sender'])
-		$overwrite_sender = ' checked="checked"';
-	else
-		$overwrite_sender = '';
 	$suggested_ports = array("25", "465", "587");
 
 	?>
@@ -102,16 +102,16 @@ function st_smtp_options_page() {
 			screen_icon();
 	?>
 		<h2>Cimy Swift SMTP</h2>
-		<p><?php _e("Add here your SMTP server details", $cimy_swift_domain); ?><br /><?php _e("<strong>Note:</strong> Gmail users need to use the server 'smtp.gmail.com' with TLS enabled and port 465", $cimy_swift_domain); ?></p>
+		<p><?php _e("Add here your SMTP server details", $cimy_swift_domain); ?><br /><?php printf(__("<strong>Note:</strong> Gmail users need to use the server 'smtp.gmail.com' with TLS enabled and port %s", $cimy_swift_domain), "587"); ?></p>
 		<form method="post" action="<?php echo admin_url("options-general.php?page=swift_smtp&amp;updated=true"); ?>">
 		<?php wp_nonce_field('cimy_swift_smtp', 'cimy_swift_smtp_adminnonce', false); ?>
 		<input type="hidden" name="st_smtp_submit_options" value="true" />
 		<table width="600">
 		<tr>
-			<td width="30%">
+			<td width="50%">
 				<label for="css_sender_name"><?php _e("Sender name:", $cimy_swift_domain); ?></label>
 			</td>
-			<td width="70%">
+			<td width="50%">
 				<input id="css_sender_name" name="css_sender_name" type="text" size="25" value="<?php echo $st_smtp_config['sender_name'];?>" />
 			</td>
 		</tr>
@@ -125,10 +125,26 @@ function st_smtp_options_page() {
 		</tr>
 		<tr>
 			<td>
+				<label for="css_sender_overwrite"><?php _e("Never overwrite the sender:", $cimy_swift_domain); ?></label>
+			</td>
+			<td>
+				<input id="css_sender_overwrite" name="css_sender_overwrite" type="radio" value="overwrite_never" <?php checked('overwrite_never', $st_smtp_config['overwrite_sender'], true); ?> />
+			</td>
+		</tr>
+		<tr>
+			<td>
 				<label for="css_sender_overwrite"><?php _e("Always overwrite the sender:", $cimy_swift_domain); ?></label>
 			</td>
 			<td>
-				<input id="css_sender_overwrite" name="css_sender_overwrite" type="checkbox" value="1"<?php echo $overwrite_sender;?> />
+				<input id="css_sender_overwrite" name="css_sender_overwrite" type="radio" value="overwrite_always" <?php checked('overwrite_always', $st_smtp_config['overwrite_sender'], true); ?> />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="css_sender_overwrite"><?php printf(__("Overwrite the sender only for the WordPress default [%s]:", $cimy_swift_domain), $from_email_def_wp); ?></label>
+			</td>
+			<td valign="top">
+				<input id="css_sender_overwrite" name="css_sender_overwrite" type="radio" value="overwrite_wp_default" <?php checked('overwrite_wp_default', $st_smtp_config['overwrite_sender'], true); ?> />
 			</td>
 		</tr>
 		<tr>
@@ -180,10 +196,9 @@ function st_smtp_options_page() {
 				</select>
 				<?php
 				$available_transports = stream_get_transports();
-				if (!empty($st_smtp_config['ssl']) && !in_array($st_smtp_config['ssl'], $available_transports))
-				{
+				if (!empty($st_smtp_config['ssl']) && !in_array($st_smtp_config['ssl'], $available_transports)) {
 					echo "<br /><strong>";
-					sprintf(_e("The selected protocol '%s' is not available on your PHP configuration, check how to enable it from %s", $cimy_swift_domain), $st_smtp_config['ssl'], "http://www.php.net/openssl");
+					printf(__("The selected protocol '%s' is not available on your PHP configuration, check how to enable it from %s", $cimy_swift_domain), $st_smtp_config['ssl'], "http://www.php.net/openssl");
 					echo "</strong>";
 				}
 				?>
@@ -224,12 +239,16 @@ function st_smtp_options_page() {
 }
 
 function st_smtp_check_config() {
-
-	if (!$option = get_option('st_smtp_config')) {
-
+	if (!$options = get_option('st_smtp_config')) {
 		// Default Options
-		update_option('st_smtp_config', $option);
+		update_option('st_smtp_config', $options);
 	}
+	// little migration from versions <= 2.1.0
+	if (empty($options['overwrite_sender']))
+		$options['overwrite_sender'] = "overwrite_never";
+	else if ($options['overwrite_sender'] == "1")
+		$options['overwrite_sender'] = "overwrite_always";
+	return $options;
 }
 
 function st_smtp_options_submit() {

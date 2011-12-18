@@ -60,7 +60,9 @@ A lot of times I cannot reproduce the problem and I need more details, so if you
 
 
 CHANGELOG:
-v2.1.1 - /11/2011
+v2.1.1 - 19/12/2011
+- Updated Swift Mailer to 4.1.4
+- Added possibility to overwrite the sender only when empty
 - Fixed the new suggested 587 port was not correctly selected in the dropdown (but still correctly used)
 
 v2.1.0 - 10/11/2011
