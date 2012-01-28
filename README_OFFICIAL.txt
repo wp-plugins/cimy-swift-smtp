@@ -60,6 +60,9 @@ A lot of times I cannot reproduce the problem and I need more details, so if you
 
 
 CHANGELOG:
+v2.1.2 - 30/01/2012
+- Updated Swift Mailer to 4.1.5
+
 v2.1.1 - 19/12/2011
 - Updated Swift Mailer to 4.1.4
 - Added possibility to overwrite the sender only when empty
