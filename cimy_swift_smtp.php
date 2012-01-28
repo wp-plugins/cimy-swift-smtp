@@ -4,10 +4,10 @@ Plugin Name: Cimy Swift SMTP
 Plugin URI: http://www.marcocimmino.net/cimy-wordpress-plugins/cimy-swift-smtp/
 Description: Send email via SMTP (Compatible with GMAIL)
 Author: Marco Cimmino
-Version: 2.1.1
+Version: 2.1.2
 Author URI: mailto:cimmino.marco@gmail.com
 
-Copyright (c) 2007-2011 Marco Cimmino
+Copyright (c) 2007-2012 Marco Cimmino
 
 original plug-in is from Marcus Vanstone
 http://www.shiftthis.net/wordpress-swift-smtp-plugin/
@@ -239,9 +239,26 @@ function st_smtp_options_page() {
 }
 
 function st_smtp_check_config() {
-	if (!$options = get_option('st_smtp_config')) {
-		// Default Options
-		update_option('st_smtp_config', $options);
+	// screw the old name since 2.1.2
+	if ($options = get_option('st_smtp_config')) {
+		update_option('cimy_swift_smtp_options', $options);
+		delete_option('st_smtp_config', $options);
+	}
+
+	// Default Options
+	$def_options = array(
+		'server' => '',
+		'username' => '',
+		'password' => '',
+		'ssl' => '',
+		'sender_name' => '',
+		'sender_mail' => '',
+		'overwrite_sender' => "overwrite_never",
+		'port' => 25,
+	);
+	if (!$options = get_option('cimy_swift_smtp_options')) {
+		$options = $def_options;
+		update_option('cimy_swift_smtp_options', $options);
 	}
 	// little migration from versions <= 2.1.0
 	if (empty($options['overwrite_sender']))
@@ -272,6 +289,6 @@ function st_smtp_options_submit() {
 		$option['port'] = intval($_POST['css_customport']);
 	}
 
-	update_option('st_smtp_config', $option);
+	update_option('cimy_swift_smtp_options', $option);
 }
 ?>
