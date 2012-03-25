@@ -90,7 +90,7 @@ function wp_mail($to, $subject, $message, $headers = '', $attachments = array(),
 	}
 
 	// overwriting if specified or necessary
-	if ($st_smtp_config['overwrite_sender']) {
+	if ($st_smtp_config['overwrite_sender'] == "overwrite_always") {
 		$from_name = $st_smtp_config['sender_name'];
 		$from_email = $st_smtp_config['sender_mail'];
 	}
@@ -106,15 +106,20 @@ function wp_mail($to, $subject, $message, $headers = '', $attachments = array(),
 	 * option but some hosts may refuse to relay mail from an unknown domain. See
 	 * http://trac.wordpress.org/ticket/5007.
 	 */
-
-	if (empty($from_email)) {
-		// Get the site domain and get rid of www.
-		$sitename = strtolower( $_SERVER['SERVER_NAME'] );
-		if ( substr( $sitename, 0, 4 ) == 'www.' ) {
-			$sitename = substr( $sitename, 4 );
+	// Get the site domain and get rid of www.
+	$sitename = strtolower( $_SERVER['SERVER_NAME'] );
+	if ( substr( $sitename, 0, 4 ) == 'www.' ) {
+		$sitename = substr( $sitename, 4 );
+	}
+	$wp_from_email = 'wordpress@' . $sitename;
+	if (empty($from_email) || $from_email == $wp_from_email) {
+		if ($st_smtp_config['overwrite_sender'] == "overwrite_wp_default") {
+			$from_name = $st_smtp_config['sender_name'];
+			$from_email = $st_smtp_config['sender_mail'];
 		}
-
-		$from_email = 'wordpress@' . $sitename;
+		else {
+			$from_email = $wp_from_email;
+		}
 	}
 
 	//Create a message
@@ -192,7 +197,7 @@ function wp_mail($to, $subject, $message, $headers = '', $attachments = array(),
 		$transport = Swift_SmtpTransport::newInstance($st_smtp_config['server'], $st_smtp_config['port']);
 
 		if (!empty($st_smtp_config['ssl']))
-			$transport->setEncryption('ssl');
+			$transport->setEncryption($st_smtp_config['ssl']);
 
 		if (!empty($st_smtp_config['username']))
 			$transport->setUsername($st_smtp_config['username']);

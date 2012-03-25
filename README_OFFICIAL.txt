@@ -23,6 +23,8 @@ Q: Mail are not sent, why?
 
 A1: Check if all parameters are correct and check if the smtp works in another program like an email client
 A2: If you are using SSL/TLS you need a PHP with openSSL support, see requirements
+A3: Unblock/open and white list the smtp server port selected
+A4: White list your smtp server url (some hosts have a white list)
 
 
 Q: Why I got duplicates of mails? It's clearly a Cimy Swift SMTP issue!
@@ -58,6 +60,30 @@ A lot of times I cannot reproduce the problem and I need more details, so if you
 
 
 CHANGELOG:
+v2.1.3 - 25/03/2012
+- Updated Swift Mailer to 4.1.6
+- Fixed 'overwrite the sender only for the WordPress default' was not working in certain cases like comments moderation (thanks to Rolf Hillen for the patch)
+
+v2.1.2 - 30/01/2012
+- Updated Swift Mailer to 4.1.5
+- Fixed PHP warnings on plug-in's options after a fresh install (thanks to Bruce Wampler)
+
+v2.1.1 - 19/12/2011
+- Updated Swift Mailer to 4.1.4
+- Added possibility to overwrite the sender only when empty
+- Fixed the new suggested 587 port was not correctly selected in the dropdown (but still correctly used)
+
+v2.1.0 - 10/11/2011
+- Updated Swift Mailer to 4.1.3 (adds support for STARTTLS) (thanks to Julien for the beta testing)
+- Fixed a bug where TLS protocol was not correctly set
+- Added more security when saving options
+- Added warning check when SSL/TLS protocol are selected but not available
+- Added suggested port 587 for TLS/STARTTLS/GMAIL
+- Added Belorussian translation (FatCow)
+- Added Persian translation (Mostafa Pourasadollah)
+- Added Czech translation (Jan)
+- Updated Italian translation
+
 v2.0.0 - 14/07/2011
 - Updated Swift Mailer to 4.1.1
 - Added an attachment in the test mail
