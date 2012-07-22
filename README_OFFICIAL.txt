@@ -60,6 +60,9 @@ A lot of times I cannot reproduce the problem and I need more details, so if you
 
 
 CHANGELOG:
+v2.2.1 - 23/07/2012
+- Fixed email addresses with format 'Marco Cimmino <email@domain>' were not handled correctly (thanks to Rolf Hillen for the patch)
+
 v2.2.0 - 16/07/2012
 - Updated Swift Mailer to 4.2.1
 
