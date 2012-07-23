@@ -9,6 +9,8 @@ Author URI: mailto:cimmino.marco@gmail.com
 
 Copyright (c) 2007-2012 Marco Cimmino
 
+Uses Swift Mailer engine - http://swiftmailer.org/
+
 original plug-in is from Marcus Vanstone
 http://www.shiftthis.net/wordpress-swift-smtp-plugin/
 
