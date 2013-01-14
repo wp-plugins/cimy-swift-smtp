@@ -61,8 +61,8 @@ A lot of times I cannot reproduce the problem and I need more details, so if you
 
 
 CHANGELOG:
-v2.2.2 - /01/2013
-- Updated Swift Mailer to 4.2.2
+v2.3.0 - /01/2013
+- Updated Swift Mailer to 4.3.0
 
 v2.2.1 - 23/07/2012
 - Fixed email addresses with format 'Marco Cimmino <email@domain>' were not handled correctly (thanks to Rolf Hillen for the patch)
