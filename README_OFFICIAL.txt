@@ -61,6 +61,9 @@ A lot of times I cannot reproduce the problem and I need more details, so if you
 
 
 CHANGELOG:
+v2.3.1 - /02/2013
+- Added Slovak translation (Branco Radenovich - WebHostingGeeks.com)
+
 v2.3.0 - 21/01/2013
 - Fixed a PHP crash when sending an email with empty string as attachments, as does WooCommerce plug-in (thanks to Samuel Aguilera)
 - Updated Swift Mailer to 4.3.0
