@@ -113,7 +113,7 @@ function wp_mail($to, $subject, $message, $headers = '', $attachments = array(),
 	}
 	$wp_from_email = 'wordpress@' . $sitename;
 	if (empty($from_email) || $from_email == $wp_from_email) {
-		if ($st_smtp_config['overwrite_sender'] == "overwrite_wp_default") {
+		if ($st_smtp_config['overwrite_sender'] == "overwrite_wp_default" && !empty($st_smtp_config['sender_mail'])) {
 			$from_name = $st_smtp_config['sender_name'];
 			$from_email = $st_smtp_config['sender_mail'];
 		}
