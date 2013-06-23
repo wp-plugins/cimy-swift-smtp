@@ -63,6 +63,7 @@ A lot of times I cannot reproduce the problem and I need more details, so if you
 CHANGELOG:
 v2.4.0 - /06/2013
 - Updated Swift Mailer to 5.0.1
+- Fixed a PHP crash when sending an email with non existing attachments
 - Added Slovak translation (Branco Radenovich - WebHostingGeeks.com)
 
 v2.3.0 - 21/01/2013
