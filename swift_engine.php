@@ -113,7 +113,7 @@ function wp_mail($to, $subject, $message, $headers = '', $attachments = array(),
 	}
 	$wp_from_email = 'wordpress@' . $sitename;
 	if (empty($from_email) || $from_email == $wp_from_email) {
-		if ($st_smtp_config['overwrite_sender'] == "overwrite_wp_default") {
+		if ($st_smtp_config['overwrite_sender'] == "overwrite_wp_default" && !empty($st_smtp_config['sender_mail'])) {
 			$from_name = $st_smtp_config['sender_name'];
 			$from_email = $st_smtp_config['sender_mail'];
 		}
@@ -204,7 +204,9 @@ function wp_mail($to, $subject, $message, $headers = '', $attachments = array(),
 	if (!empty($attachments)) {
 		foreach ($attachments as $attachment) {
 			// bug in Swift Mailer https://github.com/swiftmailer/swiftmailer/issues/274
-			if (empty($attachment))
+			// they claim they fixed it, but at the end they throw the exception too late
+			// we want to never fail for this silly error
+			if (!is_readable($attachment))
 				continue;
 			try {
 				$message->attach(Swift_Attachment::fromPath($attachment));
