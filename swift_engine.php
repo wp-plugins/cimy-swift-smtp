@@ -141,7 +141,14 @@ function wp_mail($to, $subject, $message, $headers = '', $attachments = array(),
 				$recipient = $matches[2];
 			}
 		}
-		$message->addTo(trim($recipient), $recipient_name);
+		// leave the name null if empty
+		if (empty($recipient_name)) {
+			$message->addTo(trim($recipient));
+		}
+		else {
+			$message->addTo(trim($recipient), $recipient_name);
+		}
+		
 	}
 
 	// Add any CC and BCC recipients
@@ -155,7 +162,13 @@ function wp_mail($to, $subject, $message, $headers = '', $attachments = array(),
 					$recipient = $matches[2];
 				}
 			}
-			$message->addCc(trim($recipient),  $recipient_name);
+			// leave the name null if empty
+			if (empty($recipient_name)) {
+				$message->addCc(trim($recipient));
+			}
+			else {
+				$message->addCc(trim($recipient), $recipient_name);
+			}
 		}
 	}
 
@@ -169,7 +182,13 @@ function wp_mail($to, $subject, $message, $headers = '', $attachments = array(),
 					$recipient = $matches[2];
 				}
 			}
-			$message->addBcc(trim($recipient), $recipient_name);
+			// leave the name null if empty
+			if (empty($recipient_name)) {
+				$message->addBcc(trim($recipient));
+			}
+			else {
+				$message->addBcc(trim($recipient), $recipient_name);
+			}
 		}
 	}
 
