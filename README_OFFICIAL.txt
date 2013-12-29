@@ -63,6 +63,7 @@ A lot of times I cannot reproduce the problem and I need more details, so if you
 CHANGELOG:
 v2.4.2 - 31/12/2013
 - Updated Swift Mailer to 5.0.3
+- Added Spanish translation (Maria Ramos - WebHostingHub)
 
 v2.4.1 - 29/07/2013
 - Fixed empty name next to the recipients' email address (regressed in v2.2.1) (thanks to Michele Capurso)
