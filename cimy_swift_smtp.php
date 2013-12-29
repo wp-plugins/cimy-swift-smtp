@@ -127,26 +127,26 @@ function st_smtp_options_page() {
 		</tr>
 		<tr>
 			<td>
-				<label for="css_sender_overwrite"><?php _e("Never overwrite the sender:", $cimy_swift_domain); ?></label>
+				<label for="css_sender_overwrite_never"><?php _e("Never overwrite the sender:", $cimy_swift_domain); ?></label>
 			</td>
 			<td>
-				<input id="css_sender_overwrite" name="css_sender_overwrite" type="radio" value="overwrite_never" <?php checked('overwrite_never', $st_smtp_config['overwrite_sender'], true); ?> />
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="css_sender_overwrite"><?php _e("Always overwrite the sender:", $cimy_swift_domain); ?></label>
-			</td>
-			<td>
-				<input id="css_sender_overwrite" name="css_sender_overwrite" type="radio" value="overwrite_always" <?php checked('overwrite_always', $st_smtp_config['overwrite_sender'], true); ?> />
+				<input id="css_sender_overwrite_never" name="css_sender_overwrite" type="radio" value="overwrite_never" <?php checked('overwrite_never', $st_smtp_config['overwrite_sender'], true); ?> />
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<label for="css_sender_overwrite"><?php printf(__("Overwrite the sender only for the WordPress default [%s]:", $cimy_swift_domain), $from_email_def_wp); ?></label>
+				<label for="css_sender_overwrite_always"><?php _e("Always overwrite the sender:", $cimy_swift_domain); ?></label>
+			</td>
+			<td>
+				<input id="css_sender_overwrite_always" name="css_sender_overwrite" type="radio" value="overwrite_always" <?php checked('overwrite_always', $st_smtp_config['overwrite_sender'], true); ?> />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="css_sender_overwrite_wp_default"><?php printf(__("Overwrite the sender only for the WordPress default [%s]:", $cimy_swift_domain), $from_email_def_wp); ?></label>
 			</td>
 			<td valign="top">
-				<input id="css_sender_overwrite" name="css_sender_overwrite" type="radio" value="overwrite_wp_default" <?php checked('overwrite_wp_default', $st_smtp_config['overwrite_sender'], true); ?> />
+				<input id="css_sender_overwrite_wp_default" name="css_sender_overwrite" type="radio" value="overwrite_wp_default" <?php checked('overwrite_wp_default', $st_smtp_config['overwrite_sender'], true); ?> />
 			</td>
 		</tr>
 		<tr>
