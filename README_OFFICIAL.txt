@@ -61,6 +61,9 @@ A lot of times I cannot reproduce the problem and I need more details, so if you
 
 
 CHANGELOG:
+v2.4.3 - 17/04/2014
+- Updated Swift Mailer to 5.1.0
+
 v2.4.2 - 15/01/2014
 - Updated Swift Mailer to 5.0.3
 - Fixed radio buttons had the same input id
