@@ -12,6 +12,9 @@ function wp_mail($to, $subject, $message, $headers = '', $attachments = array(),
 		$attachments = explode( "\n", str_replace( "\r\n", "\n", $attachments ) );
 
 	require_once 'Swift/lib/swift_required.php';
+	$sender_email = "";
+	$sender_name = "";
+	$reply_to = ""; // mixed
 
 	// Headers
 	if ( empty( $headers ) ) {
@@ -45,6 +48,22 @@ function wp_mail($to, $subject, $message, $headers = '', $attachments = array(),
 				$content = trim( $content );
 
 				switch ( strtolower( $name ) ) {
+					// Sender: is only one, is the one that actually send the email, mandatory in case of multiple From:
+					// see: https://tools.ietf.org/html/rfc2822#section-3.6.2
+					case 'sender':
+						if ( strpos($content, '<' ) !== false ) {
+							// So... making my life hard again?
+							$sender_name = substr( $content, 0, strpos( $content, '<' ) - 1 );
+							$sender_name = str_replace( '"', '', $sender_name );
+							$sender_name = trim( $sender_name );
+
+							$sender_email = substr( $content, strpos( $content, '<' ) + 1 );
+							$sender_email = str_replace( '>', '', $sender_email );
+							$sender_email = trim( $sender_email );
+						} else {
+							$sender_email = trim( $content );
+						}
+						break;
 					// Mainly for legacy -- process a From: header if it's there
 					case 'from':
 						if ( strpos($content, '<' ) !== false ) {
@@ -58,6 +77,21 @@ function wp_mail($to, $subject, $message, $headers = '', $attachments = array(),
 							$from_email = trim( $from_email );
 						} else {
 							$from_email = trim( $content );
+						}
+						break;
+					case 'reply-to':
+						if ( strpos($content, '<' ) !== false ) {
+							// So... making my life hard again?
+							$reply_to_name = substr( $content, 0, strpos( $content, '<' ) - 1 );
+							$reply_to_name = str_replace( '"', '', $reply_to_name );
+							$reply_to_name = trim( $reply_to_name );
+
+							$reply_to_email = substr( $content, strpos( $content, '<' ) + 1 );
+							$reply_to_email = str_replace( '>', '', $reply_to_email );
+							$reply_to_email = trim( $reply_to_email );
+							$reply_to = array($reply_to_email => $reply_to_name);
+						} else {
+							$reply_to = trim( $content );
 						}
 						break;
 					case 'content-type':
@@ -93,12 +127,18 @@ function wp_mail($to, $subject, $message, $headers = '', $attachments = array(),
 	if ($st_smtp_config['overwrite_sender'] == "overwrite_always") {
 		$from_name = $st_smtp_config['sender_name'];
 		$from_email = $st_smtp_config['sender_mail'];
+		// overwrite sender only in case of need
+		if ((!empty($sender_name)) || (!empty($sender_email))) {
+			$sender_name = $from_name;
+			$sender_email = $from_email;
+		}
 	}
 
 	// From email and name
 	// If we don't have a name from the input headers
-	if (empty($from_name))
+	if (empty($from_name)) {
 		$from_name = 'WordPress';
+	}
 
 	/* If we don't have an email from the input headers default to wordpress@$sitename
 	 * Some hosts will block outgoing mail from this address if it doesn't exist but
@@ -122,11 +162,26 @@ function wp_mail($to, $subject, $message, $headers = '', $attachments = array(),
 		}
 	}
 
+	if (!empty($sender_email) && $sender_email == $wp_from_email && $st_smtp_config['overwrite_sender'] == "overwrite_wp_default" && !empty($st_smtp_config['sender_mail'])) {
+		$sender_name = $st_smtp_config['sender_name'];
+		$sender_email = $st_smtp_config['sender_mail'];
+	}
+
 	//Create a message
 	$message = Swift_Message::newInstance($subject)
 		->setFrom(array(apply_filters('wp_mail_from', $from_email) => apply_filters('wp_mail_from_name', $from_name)))
 		->setBody($message)
 	;
+
+	// Set the sender, which may be different than the from field
+	if (!empty($sender_email)) {
+		$message->setSender(array($sender_email => $sender_name));
+	}
+
+	// Set the reply-to
+	if (!empty($reply_to)) {
+		$message->setReplyTo($reply_to);
+	}
 
 	// Set destination addresses
 	if (!is_array($to))
