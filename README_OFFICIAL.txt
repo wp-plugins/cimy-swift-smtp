@@ -61,8 +61,9 @@ A lot of times I cannot reproduce the problem and I need more details, so if you
 
 
 CHANGELOG:
-v2.4.4 - /04/2014
+v2.5.0 - /05/2014
 - Added 'Sender' and 'Reply-To' header support, fixes imcompatibility with Visual Form Builder (thanks to supawiz6991)
+- Updated Swift Mailer to 5.2.0
 
 v2.4.3 - 18/04/2014
 - Updated Swift Mailer to 5.1.0
