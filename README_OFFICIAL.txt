@@ -61,6 +61,19 @@ A lot of times I cannot reproduce the problem and I need more details, so if you
 
 
 CHANGELOG:
+v2.5.0 - 12/05/2014
+- Added 'Sender' and 'Reply-To' header support, fixes imcompatibility with Visual Form Builder (thanks to supawiz6991)
+- Add 'autocomplete=off' to the form, however newer Chrome and Firefox browsers are ignoring it
+- Updated Swift Mailer to 5.2.0
+
+v2.4.3 - 18/04/2014
+- Updated Swift Mailer to 5.1.0
+
+v2.4.2 - 15/01/2014
+- Updated Swift Mailer to 5.0.3
+- Fixed radio buttons had the same input id
+- Added Spanish translation (Maria Ramos - WebHostingHub)
+
 v2.4.1 - 29/07/2013
 - Fixed empty name next to the recipients' email address (regressed in v2.2.1) (thanks to Michele Capurso)
 
