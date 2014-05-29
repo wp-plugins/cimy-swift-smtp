@@ -61,6 +61,9 @@ A lot of times I cannot reproduce the problem and I need more details, so if you
 
 
 CHANGELOG:
+v2.5.1 - /05/2014
+- Fixed PHP errors with CC and BCC (thanks to Paul Martin)
+
 v2.5.0 - 12/05/2014
 - Added 'Sender' and 'Reply-To' header support, fixes imcompatibility with Visual Form Builder (thanks to supawiz6991)
 - Add 'autocomplete=off' to the form, however newer Chrome and Firefox browsers are ignoring it

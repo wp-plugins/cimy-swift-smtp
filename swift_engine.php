@@ -28,6 +28,8 @@ function wp_mail($to, $subject, $message, $headers = '', $attachments = array(),
 			$tempheaders = $headers;
 		}
 		$headers = array();
+		$cc = array();
+		$bcc = array();
 
 		// If it's actually got contents
 		if ( !empty( $tempheaders ) ) {
