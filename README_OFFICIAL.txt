@@ -61,8 +61,9 @@ A lot of times I cannot reproduce the problem and I need more details, so if you
 
 
 CHANGELOG:
-v2.5.1 - /05/2014
+v2.5.1 - /06/2014
 - Fixed PHP errors with CC and BCC (thanks to Paul Martin)
+- Updated Swift Mailer to 5.2.1 (Security Update)
 
 v2.5.0 - 12/05/2014
 - Added 'Sender' and 'Reply-To' header support, fixes imcompatibility with Visual Form Builder (thanks to supawiz6991)
