@@ -72,7 +72,7 @@ v2.5.1 - 26/06/2014
 - Updated Swift Mailer to 5.2.1 (Security Update)
 
 v2.5.0 - 12/05/2014
-- Added 'Sender' and 'Reply-To' header support, fixes imcompatibility with Visual Form Builder (thanks to supawiz6991)
+- Added 'Sender' and 'Reply-To' header support, fixes incompatibility with Visual Form Builder (thanks to supawiz6991)
 - Add 'autocomplete=off' to the form, however newer Chrome and Firefox browsers are ignoring it
 - Updated Swift Mailer to 5.2.0
 
